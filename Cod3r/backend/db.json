@@ -19,6 +19,11 @@
       "name": "Produto Teste",
       "price": 125.98,
       "id": 4
+    },
+    {
+      "name": "Caneca",
+      "price": "25.50",
+      "id": 5
     }
   ]
 }

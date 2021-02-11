@@ -1,4 +1,5 @@
-import { Component } from '@angular/core';
+import { Component, OnInit } from '@angular/core';
+import { Observable } from 'rxjs';
 
 @Component({
   selector: 'app-root',
@@ -27,6 +28,37 @@ import { Component } from '@angular/core';
   `,
   styles: []
 })
-export class AppComponent {
+export class AppComponent implements OnInit {
+
+  ngOnInit(): void {
+    this.minhaPromise('Brian')
+      .then(result => console.log(result))
+      .catch(error => console.log(error))
+
+    this.minhaObservable('Brian')
+      .subscribe(
+        result => console.log(result), 
+        error => console.log(error))
+  }
   title = 'rxjs';
+
+  minhaPromise(nome: String): Promise<String> {
+    return new Promise((resolve, reject) => {
+      if(nome === 'Brian') {
+        setTimeout(() => {
+          resolve('Seja bem vindo')
+        }, 1000);
+      } 
+      else {
+        reject('Pessoa incorreta')
+      }
+    })
+  }
+
+  minhaObservable(nome: String): Observable<String> {
+    return new Observable<String>(sub => {
+      if(nome === 'Brian') sub.next('Olá')
+      else sub.error('Deu Erro')
+    })
+  }
 }
